@@ -73,7 +73,21 @@ export default createGlobalStyle`
     }
   }
 
-  .react_select__multi-value__label, .react_select__indicator, .react_select__placeholder, .react_select__input {
+  .react_select__multi-value__label, .react_select__indicator, .react_select__placeholder, .react_select__input, .ql-header, .ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active {
     color: ${props => props.theme.text} !important;
+  }
+  
+  .ql-toolbar, .ql-container, .ql-picker-options {
+    background: ${props => props.theme.inputBg};
+    color: ${props => props.theme.text};
+  }
+  
+  .ql-snow .ql-picker-options {
+    background: ${props => props.theme.profile} !important;
+  }
+
+
+  .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg *, .ql-formats svg  *{
+    stroke: ${props => props.theme.text} !important;
   }
 `
