@@ -1,0 +1,7 @@
+export { default as Avatar } from './Avatar'
+export { default as Button } from './Button'
+export { default as Header } from './Header'
+export { default as InputBlock } from './InputBlock'
+export { default as Page } from './Page'
+export { default as Perfil } from './Perfil'
+export { default as Posts } from './Posts'
