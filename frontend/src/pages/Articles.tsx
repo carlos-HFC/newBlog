@@ -2,11 +2,14 @@ import { ChangeEvent, FormEvent, useContext, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { BsCamera } from 'react-icons/bs'
 import Creatable from 'react-select/creatable'
+import Quill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 import { Button, InputBlock, Page } from '../components'
 import { BlogContext } from '../context/BlogContext'
-import api from '../services/api'
 import { notify } from '../utils'
+import api from '../services/api'
+import withPermission from '../utils/util'
 
 interface ITags {
   value: string | number
@@ -14,7 +17,7 @@ interface ITags {
   __isNew__?: boolean
 }
 
-export default function Articles() {
+function Articles() {
   const { categories } = useContext(BlogContext)
 
   const [newTags, setNewTags] = useState<ITags[]>([])
@@ -105,12 +108,28 @@ export default function Articles() {
             />
           </div>
         </div>
-        <InputBlock label="Descrição" type="textarea" name="description" value={registerArticleData.description} onChange={changeRegisterArticle} />
+        <div className="row mb-2">
+          <div className="col mb-2">
+            <label htmlFor="Description">Descrição</label>
+            <Quill id="Description" value={registerArticleData.description} onChange={description => setRegisterArticleData({ ...registerArticleData, description })}
+              modules={{
+                toolbar: [
+                  [{ 'header': [1, 2, 3, false] }],
+                  ['bold', 'italic', 'underline', 'blockquote', 'code-block'],
+                  [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
+                  [{ 'align': [] }],
+                  ['link', 'image'],
+                  ['clean']
+                ]
+              }}
+            />
+          </div>
+        </div>
         <div className="d-flex justify-content-end">
-          <Button variant="primary" className="mr-2">
+          <Button type="submit" variant="primary" className="mr-2">
             Cadastrar
           </Button>
-          <Button variant="secondary" onClick={cancelRegisterArticle}>
+          <Button type="reset" variant="secondary" onClick={cancelRegisterArticle}>
             Cancelar
           </Button>
         </div>
@@ -118,3 +137,5 @@ export default function Articles() {
     </Page>
   )
 }
+
+export default withPermission(['author'])(Articles)
