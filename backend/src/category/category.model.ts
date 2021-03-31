@@ -1,4 +1,4 @@
-import { BelongsToMany, Column, DataType, DefaultScope, Model, Scopes, Table } from "sequelize-typescript";
+import { BeforeCreate, BelongsToMany, Column, DataType, DefaultScope, Model, Scopes, Table } from "sequelize-typescript";
 
 import { Article } from "src/article/article.model";
 import { CategoryArticle } from "src/categoryArticle/categoryArticle.model";
@@ -33,9 +33,15 @@ import { User } from "src/user/user.model";
 export class Category extends Model<Category> {
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
+    unique: true
   })
   name: string
+
+  @BeforeCreate
+  static async lowerName(category: Category) {
+    return category.name = category.name.toLowerCase().trim()
+  }
 
   @BelongsToMany(() => Article, {
     through: () => CategoryArticle,
