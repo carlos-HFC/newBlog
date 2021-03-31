@@ -21,7 +21,15 @@ export class CategoryService {
     return await this.categoryModel.scope("articles").findByPk(id)
   }
 
+  async getByName(name: string) {
+    return await this.categoryModel.findOne({ where: { name } })
+  }
+
   async store(body: ICreateCategory) {
+    const exists = await this.getByName(body.name.trim())
+
+    if (exists) throw new HttpException("Essa categoria já existe", 400)
+
     const category = await this.categoryModel.create(body)
 
     return { category, message: "Categoria criada com sucesso!" }
