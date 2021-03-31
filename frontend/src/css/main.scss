@@ -599,3 +599,31 @@ textarea.form-control {
     }
   }
 }
+
+.quill {
+  font-family: "Rubik";
+
+  .ql-toolbar.ql-snow {
+    font-family: "Rubik";
+    border: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .ql-container.ql-snow {
+    font-family: "Rubik";
+    font-size: 1rem;
+    border: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    min-height: 150px;
+  }
+
+  .ql-snow .ql-picker.ql-expanded .ql-picker-options {
+    margin-top: 0;
+  }
+
+  .ql-editor img {
+    max-width: 500px;
+  }
+}
