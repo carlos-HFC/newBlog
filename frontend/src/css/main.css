@@ -884,3 +884,27 @@ textarea.form-control {
   margin-bottom: 8px;
   width: 24px;
 }
+
+.quill {
+  font-family: "Rubik";
+}
+.quill .ql-toolbar.ql-snow {
+  font-family: "Rubik";
+  border: 0;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.quill .ql-container.ql-snow {
+  font-family: "Rubik";
+  font-size: 1rem;
+  border: 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  min-height: 150px;
+}
+.quill .ql-snow .ql-picker.ql-expanded .ql-picker-options {
+  margin-top: 0;
+}
+.quill .ql-editor img {
+  max-width: 500px;
+}
