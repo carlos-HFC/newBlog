@@ -1,0 +1,58 @@
+$colors: (
+  danger: #c0392b,
+  dark: #212529,
+  navy: #2b7489,
+  primary: #2abae4,
+  secondary: #aaa,
+  success: #1d6f42,
+  warning: #fc3,
+);
+
+$btn-colors: (
+  "danger" map-get($colors, danger) #fff,
+  "dark" map-get($colors, dark) #fff,
+  "navy" map-get($colors, navy) #fff,
+  "primary" map-get($colors, primary) #fff,
+  "secondary" map-get($colors, secondary) #fff,
+  "success" map-get($colors, success) #fff,
+  "warning" map-get($colors, warning) #000
+);
+
+@each $key, $color, $text in $btn-colors {
+  .btn__#{$key} {
+    background: $color;
+    border: 0.5px solid $color;
+    color: $text;
+    transition: 0.3s;
+
+    &:focus {
+      box-shadow: 0 0 0 4px transparentize($color, 0.3);
+    }
+
+    &:hover,
+    &:focus {
+      background: darken($color, 7.5%);
+      border-color: darken($color, 10%);
+      color: $text;
+      transition: 0.3s;
+    }
+
+    &:active {
+      background: darken($color, 10%);
+      border-color: darken($color, 12.5%);
+      transition: 0.3s;
+    }
+  }
+}
+
+@each $key, $color in map-remove($colors, dark, navy, primary, secondary, warning) {
+  .text__#{$key} {
+    color: $color !important;
+  }
+
+  .bg__#{$key} {
+    background: linear-gradient(125deg, lighten($color, 40), lighten($color, 30)) !important;
+    border: lighten($color, 55) !important;
+    color: $color;
+  }
+}
