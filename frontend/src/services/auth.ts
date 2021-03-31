@@ -8,4 +8,4 @@ export const logout = () => {
   window.location.href = "/"
 }
 export const setToken = (token: string) => Cookies.set("TOKEN_BLOG", token)
-export const tokenExpires = (exp: number) => Cookies.set("EXP_TOKEN_BLOG", String(exp))
+export const tokenExpires = (exp: Date) => Cookies.set("EXP_TOKEN_BLOG", exp)
