@@ -9,8 +9,6 @@ import { UserContext } from "../context/UserContext";
 import { setToken, tokenExpires } from "../services/auth";
 import { avatars, notify } from "../utils";
 import api from "../services/api";
-import Cookies from "js-cookie";
-import { isAfter } from "date-fns";
 
 export default function Login() {
   const history = useHistory()
@@ -47,19 +45,10 @@ export default function Login() {
     try {
       const response = await api.post('/auth/login', { ...login })
 
-      console.log(response.data)
-
       setToken(response.data.access.token)
-      tokenExpires(response.data.access.expiresIn)
-
-      const tmp = Cookies.get("EXP_TOKEN_BLOG")
-
-      const atual = isAfter(new Date(), Number(tmp))
-
-      console.log(new Date(Number(tmp)))
-      console.log(atual)
-
+      tokenExpires(new Date(response.data.access.expiresIn))
       handleLogin(response.data.user as IUser)
+
       return history.push('/')
     } catch (error) {
       return notify('error', error.response.data.message, 'danger')
