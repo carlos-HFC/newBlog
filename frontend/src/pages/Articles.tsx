@@ -48,7 +48,7 @@ function Articles() {
   async function registerArticle(e: FormEvent) {
     e.preventDefault()
 
-    if (Object.values(registerArticleData).some(el => !el) || !thumb || !newTags.length) {
+    if (Object.values(registerArticleData).some(el => !el) || !newTags.length) {
       return notify('error', 'Preencha todos os campos', 'danger')
     }
 
@@ -63,7 +63,7 @@ function Articles() {
       const categoriesId = [...oldCategories, ...categories.map(el => el.data.category.id)]
 
       const data = new FormData()
-      data.append('file', thumb as any, thumb?.name)
+      if (thumb) data.append('file', thumb as any, thumb?.name)
       data.append('title', registerArticleData.title)
       data.append('description', registerArticleData.description)
       data.append('categoriesId', categoriesId.toString())
