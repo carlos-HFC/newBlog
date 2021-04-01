@@ -38,7 +38,8 @@ export interface IArticles {
   title: string
   description: string
   slug: string
-  image: string
+  image?: string
+  numberAccess: number
   publishedIn: string
   author: IUser
   comment: IComments[]
