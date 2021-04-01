@@ -25,6 +25,11 @@ export class ArticleController {
     return await this.articleService.getById(id)
   }
 
+  @Patch('/access/:id')
+  async access(@Param('id') id: number) {
+    return await this.articleService.registerAccess(id)
+  }
+
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Role('author')
   @Post()
