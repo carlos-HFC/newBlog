@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap"
 import { NavLink, useHistory } from "react-router-dom"
 import { ThemeContext } from "styled-components"
 
+import { Avatar } from "."
 import { BlogContext } from "../context/BlogContext"
 import { UserContext } from "../context/UserContext"
 import { isAuth, logout } from '../services/auth'
@@ -22,7 +23,7 @@ const Header: FC<IHeader> = ({ handleTheme }) => {
   return (
     <header>
       <Navbar expand="lg" className="container-fluid">
-        <LinkContainer to="">
+        <LinkContainer to="/">
           <Navbar.Brand title="BLOG">
             Blog <BsChatSquareDots />
           </Navbar.Brand>
@@ -46,7 +47,7 @@ const Header: FC<IHeader> = ({ handleTheme }) => {
                 ))}
               </Dropdown.Menu>
             </Dropdown>
-            <NavLink className="nav-link" to="/articles">Artigos</NavLink>
+            {user?.role === 'author' && <NavLink className="nav-link" to="/articles">Artigos</NavLink>}
           </Nav>
           <Nav className="align-items-lg-center" activeKey={history.location.pathname}>
             <label className="switch">
@@ -55,13 +56,13 @@ const Header: FC<IHeader> = ({ handleTheme }) => {
             </label>
             {!isAuth()
               ? (
-                <NavLink to="login" className="btn btn-outline-light">
+                <NavLink to="/login" className="btn btn-outline-light">
                   Login/Cadastrar
                 </NavLink>
               ) : (
                 <Dropdown as="div" navbar alignRight>
                   <Dropdown.Toggle as="a" role="button" className="nav-link">
-                    {user.nickname}
+                    {user.nickname} <Avatar avatar={user.avatar} size={16} />
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
                     <LinkContainer to="/profile">
