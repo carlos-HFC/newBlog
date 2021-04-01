@@ -24,6 +24,12 @@ export class ArticleService {
     return await this.articleModel.scope("complete").findByPk(id)
   }
 
+  async registerAccess(id: number) {
+    const article = await this.getById(id)
+
+    return await article.update({ numberAccess: article.numberAccess + 1 })
+  }
+
   async store(authorId: number, body: ICreateArticle, file?: Express.Multer.File) {
     const { categoriesId } = body
 
