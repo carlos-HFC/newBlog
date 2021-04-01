@@ -14,7 +14,7 @@ export class CategoryService {
   ) { }
 
   async getAll() {
-    return await this.categoryModel.scope("articles").findAll()
+    return await this.categoryModel.findAll()
   }
 
   async getById(id: number) {
