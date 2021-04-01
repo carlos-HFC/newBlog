@@ -9,9 +9,8 @@ import { IUser } from './@types'
 import { Header } from './components'
 import { BlogContext } from './context/BlogContext'
 import { UserProvider } from './context/UserContext'
-import { Articles, Categories, Login, Profile } from './pages'
+import { ArticleRead, Articles, Categories, Home, Login, Profile } from './pages'
 import { isAuth, logout } from './services/auth'
-import api from './services/api'
 
 import { dark, light } from './css/themes'
 import GlobalStyle from './css/styles'
@@ -30,26 +29,18 @@ let countdown: NodeJS.Timeout
 
 function Routes() {
   const route = useRouteMatch('/login')
-  const { handleArticles, handleCategories, categories } = useContext(BlogContext)
+  const { categories } = useContext(BlogContext)
 
   const [time, setTime] = useState<Date | null>(null)
   const [theme, setTheme] = useState<DefaultTheme>(Cookies.getJSON("THEME_BLOG") || light)
   const [user, setUser] = useState<IUser>(Cookies.getJSON("user"))
-
+  
   const expiresToken = Cookies.get("EXP_TOKEN_BLOG")
+  const cookieUser = Cookies.get("user")
 
   useEffect(() => {
-    Promise.all([
-      api.get('/categories'),
-      api.get('/articles')
-    ]).then(response => {
-      handleCategories(response[0].data)
-      handleArticles(response[1].data)
-    })
     setUser(Cookies.getJSON("user"))
   }, [])
-
-  const cookieUser = Cookies.get("user")
 
   useEffect(() => {
     if (cookieUser !== "undefined") {
@@ -91,9 +82,10 @@ function Routes() {
         <ThemeProvider theme={theme}>
           <GlobalStyle />
           {!route && <Header handleTheme={handleTheme} />}
-          <Route exact path="/" component={() => <h1>Hello</h1>} />
-          <Route path="/login" component={Login} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
           <Route exact path="/articles" component={Articles} />
+          <Route exact path="/articles/:id" component={ArticleRead} />
           <Route exact path="/categories/:name" component={() => <Categories categories={categories} />} />
           <Private component={Profile} />
         </ThemeProvider>
