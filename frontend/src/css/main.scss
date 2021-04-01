@@ -60,6 +60,10 @@ header {
       border-radius: 20px;
       display: flex;
 
+      & > * {
+        margin-left: 10px;
+      }
+
       &::after {
         display: none;
       }
@@ -487,7 +491,7 @@ textarea.form-control {
   display: grid;
   grid-template-columns: 1fr;
 
-  @media (min-width: 768px) {
+  @media (min-width: 992px) {
     gap: 30px;
     grid-template-columns: repeat(2, 1fr);
   }
@@ -498,9 +502,13 @@ textarea.form-control {
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
     display: flex;
     flex: 1;
-    height: 250px;
+    height: auto;
     margin-bottom: 1.5rem;
     position: relative;
+
+    @media (min-width: 992px) {
+      margin-bottom: 0;
+    }
 
     &-img {
       display: none;
@@ -514,7 +522,7 @@ textarea.form-control {
       img {
         border-bottom-right-radius: 5px;
         border-top-right-radius: 5px;
-        height: 248px;
+        height: 100%;
         object-fit: cover;
         width: 200px;
       }
@@ -527,40 +535,93 @@ textarea.form-control {
       overflow: hidden;
       padding: 20px;
 
-      strong {
-        display: inline-block;
+      ul {
+        display: flex;
+        font-weight: 700;
         margin-bottom: 8px;
+
+        li {
+          border-radius: 10px;
+          flex-direction: row;
+          font-size: 0.8rem;
+
+          + li {
+            margin-left: 5px;
+          }
+        }
       }
 
-      div {
+      div,
+      small {
         color: #aaa;
-        margin-bottom: 2px;
+        margin-bottom: 5px;
       }
 
-      p {
+      p.text {
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
+        -webkit-line-clamp: 3;
         display: -webkit-box;
         flex: 1;
         overflow: hidden;
+      }
+
+      a {
+        &:focus {
+          box-shadow: none;
+        }
+
+        svg {
+          margin-left: 10px;
+        }
       }
     }
   }
 }
 
-.blog__post {
+.article {
   margin-bottom: 4rem;
 
-  &-title {
-    margin-bottom: 0.25rem;
-    font-weight: bold;
+  &__title,
+  h2 {
     font-family: "Karla";
     font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
   }
 
-  &-meta {
-    margin-bottom: 1.25rem;
+  &__img {
+    height: 300px;
+    margin-bottom: 1rem;
+    width: 100%;
+
+    img {
+      border-radius: 10px;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  ul {
+    display: flex;
+    margin-bottom: 8px;
+    font-weight: 700;
+
+    li {
+      border-radius: 10px;
+      flex-direction: row;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.5rem;
+
+      + li {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  &__meta {
     color: #aaa;
+    margin-bottom: 1.25rem;
   }
 }
 

@@ -1,5 +1,5 @@
+import { darken, invert } from 'polished'
 import { createGlobalStyle } from "styled-components";
-import { darken } from 'polished'
 
 export default createGlobalStyle`
   body, .modal-content {
@@ -87,7 +87,12 @@ export default createGlobalStyle`
   }
 
 
-  .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg *, .ql-formats svg  *{
+  .ql-snow .ql-picker:not(.ql-color-picker):not(.ql-icon-picker) svg *, .ql-formats svg * {
     stroke: ${props => props.theme.text} !important;
+  }
+
+  .post__highlight-item li, .article li {
+    background: ${props => invert(props.theme.background)};
+    color: ${props => invert(props.theme.text)};
   }
 `
