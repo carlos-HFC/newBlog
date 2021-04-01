@@ -19,6 +19,7 @@ import { User } from "src/user/user.model";
 }))
 @Scopes(() => ({
   complete: {
+    order: [['numberAccess', 'DESC']],
     include: [
       {
         model: User,
@@ -47,10 +48,7 @@ import { User } from "src/user/user.model";
 }))
 @Table({ paranoid: true })
 export class Article extends Model<Article> {
-  @Column({
-    type: DataType.STRING,
-    allowNull: false
-  })
+  @Column(DataType.STRING)
   image: string
 
   @Column({
@@ -74,11 +72,14 @@ export class Article extends Model<Article> {
   })
   publishedIn: string
 
+  @Column(DataType.INTEGER)
+  numberAccess: number
+
   @ForeignKey(() => User)
   @Column({ allowNull: false })
   authorId: number
 
-  @BelongsTo(() => User)
+  @BelongsTo(() => User, { onUpdate: "CASCADE" })
   author: User
 
   @BelongsToMany(() => Category, {
