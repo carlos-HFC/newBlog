@@ -25,11 +25,9 @@ export interface IUser {
 
 export interface IComments {
   id: number
-  userId?: number
   name?: string
   content: string
   publishedIn: string
-  user?: IUser
 }
 
 export interface IArticles {
@@ -50,4 +48,10 @@ export interface ICategories {
   id: number
   name: string
   article: IArticles[]
+}
+
+export interface IOptions {
+  value: string | number
+  label: string
+  __isNew__?: boolean
 }
