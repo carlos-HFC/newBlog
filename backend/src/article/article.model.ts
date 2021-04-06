@@ -19,7 +19,6 @@ import { User } from "src/user/user.model";
 }))
 @Scopes(() => ({
   complete: {
-    order: [['numberAccess', 'DESC']],
     include: [
       {
         model: User,
@@ -34,14 +33,7 @@ import { User } from "src/user/user.model";
       {
         model: Comment,
         attributes: ['id', 'name', 'content', 'publishedIn'],
-        as: 'comment',
-        include: [
-          {
-            model: User,
-            attributes: ['id', 'name', 'email'],
-            as: 'user'
-          },
-        ]
+        as: 'comment'
       },
     ]
   }
