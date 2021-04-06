@@ -93,25 +93,25 @@ export default function Login() {
             </header>
 
             <form onSubmit={effectLogin} autoComplete="off" className={`form__login ${formActive === 'signin' ? 'active' : ''}`}>
-              <InputBlock label="E-mail ou Nickname" name="username" value={login.username} onChange={handleChangeLogin} required />
-              <InputBlock label="Senha" password name="password" value={login.password} onChange={handleChangeLogin} required />
+              <InputBlock id="Email_NicknameLogin" label="E-mail ou Nickname" name="username" value={login.username} onChange={handleChangeLogin} required />
+              <InputBlock id="PasswordLogin" label="Senha" password name="password" value={login.password} onChange={handleChangeLogin} required />
               <div className="d-flex mt-3">
                 <Button variant="primary">Entrar</Button>
               </div>
             </form>
 
             <form onSubmit={effectRegister} autoComplete="off" className={`form__signup ${formActive === 'signup' ? 'active' : ''}`}>
-              <InputBlock label="Nome" name="name" value={register.name} onChange={handleChangeRegister} required />
-              <InputBlock label="Nickname" name="nickname" value={register.nickname} onChange={handleChangeRegister} required />
-              <InputBlock type="email" label="E-mail" name="email" value={register.email} onChange={handleChangeRegister} required />
+              <InputBlock id="NameRegister" label="Nome" name="name" value={register.name} onChange={handleChangeRegister} required />
+              <InputBlock id="NicknameRegister" label="Nickname" name="nickname" value={register.nickname} onChange={handleChangeRegister} required />
+              <InputBlock id="EmailRegister" type="email" label="E-mail" name="email" value={register.email} onChange={handleChangeRegister} required />
               <div className="col mb-2">
                 <div className="row" id="avatar">
                   <label htmlFor="avatar">Avatar</label>
                   <span onClick={() => setToggleModal(!toggleModal)}>{!toggleModal && avatars.map(el => el.name === avatar && el({}))}</span>
                 </div>
               </div>
-              <InputBlock label="Senha" password name="password" value={register.password} onChange={handleChangeRegister} required />
-              <InputBlock label="Confirmar Senha" password name="confirmPass" value={register.confirmPass} onChange={handleChangeRegister} required />
+              <InputBlock id="PasswordRegister" label="Senha" password name="password" value={register.password} onChange={handleChangeRegister} required />
+              <InputBlock id="Confirm_PasswordRegister" label="Confirmar Senha" password name="confirmPass" value={register.confirmPass} onChange={handleChangeRegister} required />
               <div className="d-flex mt-3">
                 <Button variant="primary">Cadastrar</Button>
               </div>
