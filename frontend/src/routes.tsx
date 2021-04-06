@@ -1,5 +1,5 @@
 import { isAfter } from 'date-fns'
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Redirect, Route, RouteProps, Switch, useRouteMatch } from 'react-router-dom'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import Cookies from 'js-cookie'
@@ -7,9 +7,8 @@ import Swal from 'sweetalert2'
 
 import { IUser } from './@types'
 import { Header } from './components'
-import { BlogContext } from './context/BlogContext'
 import { UserProvider } from './context/UserContext'
-import { ArticleRead, Articles, Categories, Home, Login, Profile } from './pages'
+import { ArticleRead, Articles, Home, Login, Profile, Users } from './pages'
 import { isAuth, logout } from './services/auth'
 
 import { dark, light } from './css/themes'
@@ -20,7 +19,9 @@ function Private(props: RouteProps) {
 
   return (
     <>
-      <Route path="/profile" component={Profile} />
+      <Route exact path="/articles" component={Articles} />
+      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/users" component={Users} />
     </>
   )
 }
@@ -29,12 +30,11 @@ let countdown: NodeJS.Timeout
 
 function Routes() {
   const route = useRouteMatch('/login')
-  const { categories } = useContext(BlogContext)
 
   const [time, setTime] = useState<Date | null>(null)
   const [theme, setTheme] = useState<DefaultTheme>(Cookies.getJSON("THEME_BLOG") || light)
   const [user, setUser] = useState<IUser>(Cookies.getJSON("user"))
-  
+
   const expiresToken = Cookies.get("EXP_TOKEN_BLOG")
   const cookieUser = Cookies.get("user")
 
@@ -84,10 +84,8 @@ function Routes() {
           {!route && <Header handleTheme={handleTheme} />}
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
-          <Route exact path="/articles" component={Articles} />
           <Route exact path="/articles/:id" component={ArticleRead} />
-          <Route exact path="/categories/:name" component={() => <Categories categories={categories} />} />
-          <Private component={Profile} />
+          <Private />
         </ThemeProvider>
       </UserProvider>
     </Switch>
