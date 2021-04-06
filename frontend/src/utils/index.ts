@@ -1,4 +1,4 @@
-import { GiAirForce, GiAlienStare, GiAmericanFootballBall, GiBatMask, GiComputing, GiFlame, GiFlyingFlag, GiGhost, GiLeafSkeleton, GiNinjaHeroicStance, GiRobotAntennas, GiSeaDragon, GiSkullCrossedBones, GiSoccerBall, GiTargetArrows, GiTrafficCone, GiTrident, GiTrophy, GiTwoCoins, GiWaterDrop } from "react-icons/gi";
+import { GiAirForce, GiAlienStare, GiAmericanFootballBall, GiBatMask, GiComputing, GiFlyingFlag, GiGhost, GiNinjaHeroicStance, GiRobotAntennas, GiSeaDragon, GiSkullCrossedBones, GiSoccerBall, GiTargetArrows, GiTrident, GiTrophy } from "react-icons/gi";
 import Swal, { SweetAlertIcon } from "sweetalert2"
 
 export const confirm = (icon: SweetAlertIcon, title: string) => {
@@ -44,4 +44,4 @@ export const notify = (icon: SweetAlertIcon, title: string, className: 'danger' 
   }).fire(title, undefined, icon)
 }
 
-export const avatars = [GiTrafficCone, GiAirForce, GiAmericanFootballBall, GiSoccerBall, GiAlienStare, GiBatMask, GiNinjaHeroicStance, GiSeaDragon, GiFlame, GiWaterDrop, GiTrophy, GiTrident, GiLeafSkeleton, GiSkullCrossedBones, GiTwoCoins, GiFlyingFlag, GiComputing, GiRobotAntennas, GiTargetArrows, GiGhost]
+export const avatars = [GiAirForce, GiAmericanFootballBall, GiSoccerBall, GiAlienStare, GiBatMask, GiNinjaHeroicStance, GiSeaDragon, GiTrophy, GiTrident, GiSkullCrossedBones, GiFlyingFlag, GiComputing, GiRobotAntennas, GiTargetArrows, GiGhost]
