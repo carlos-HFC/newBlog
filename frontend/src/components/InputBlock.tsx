@@ -4,15 +4,16 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs"
 import { Button } from '.'
 
 interface IInputBlock extends InputHTMLAttributes<HTMLInputElement> {
+  id: string
   label: ReactNode
   password?: boolean
   type?: 'text' | 'email' | 'password' | 'textarea'
 }
 
-const InputBlock: FC<IInputBlock> = ({ label, password, type = 'text', ...props }) => {
+const InputBlock: FC<IInputBlock> = ({ label, password, type = 'text', id, ...props }) => {
   const [isTypePass, setIsTypePass] = useState(true)
 
-  const htmlFor = `${label?.toString().split(' ').join('_').toLowerCase()}__${Math.random() * 1000}`
+  const htmlFor = `${label?.toString().split("").length}${id}__${type}${label?.toString().toLowerCase()}`
 
   return (
     !password ? (
@@ -21,7 +22,7 @@ const InputBlock: FC<IInputBlock> = ({ label, password, type = 'text', ...props 
           <label htmlFor={htmlFor}>{label}</label>{props.required && <span>*</span>}
           {type !== 'textarea'
             ? <input {...props} id={htmlFor} autoComplete="off" type={type} className="form-control" />
-            : <textarea {...props as TextareaHTMLAttributes<HTMLTextAreaElement>} id={htmlFor} className="form-control" rows={10} />
+            : <textarea {...props as TextareaHTMLAttributes<HTMLTextAreaElement>} id={htmlFor} className="form-control" rows={5} />
           }
         </div>
       </div>
