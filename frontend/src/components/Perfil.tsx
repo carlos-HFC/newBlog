@@ -7,7 +7,6 @@ import { UserContext } from "../context/UserContext"
 import { logout } from "../services/auth"
 import { avatars, notify } from "../utils"
 import api from "../services/api"
-import withPermission from "../utils/util"
 
 interface IPerfil {
   user: IUser
@@ -134,12 +133,12 @@ const Perfil: FC<IPerfil> = ({ user }) => {
         </Modal.Header>
         <form onSubmit={updateUser}>
           <Modal.Body>
-            <InputBlock label="Nome" name="name" defaultValue={user.name} onChange={handleChangeEdit} />
-            <InputBlock type="email" label="E-mail" name="email" defaultValue={user.email} onChange={handleChangeEdit} />
-            <InputBlock label="Nickname" name="nickname" defaultValue={user.nickname} onChange={handleChangeEdit} />
-            <InputBlock label="Senha Atual" password name="oldPass" value={edit.oldPass} onChange={handleChangeEdit} />
-            <InputBlock label="Nova Senha" password name="password" value={edit.password} onChange={handleChangeEdit} />
-            <InputBlock label="Confirmar Senha" password name="confirmPass" value={edit.confirmPass} onChange={handleChangeEdit} />
+            <InputBlock id="NameUpdate" label="Nome" name="name" defaultValue={user.name} onChange={handleChangeEdit} />
+            <InputBlock id="EmailUpdate" type="email" label="E-mail" name="email" defaultValue={user.email} onChange={handleChangeEdit} />
+            <InputBlock id="NickanemUpdate" label="Nickname" name="nickname" defaultValue={user.nickname} onChange={handleChangeEdit} />
+            <InputBlock id="Old_PasswordUpdate" label="Senha Atual" password name="oldPass" value={edit.oldPass} onChange={handleChangeEdit} />
+            <InputBlock id="New_PasswordUpdate" label="Nova Senha" password name="password" value={edit.password} onChange={handleChangeEdit} />
+            <InputBlock id="Confirm_NewPasswordUpdate" label="Confirmar Senha" password name="confirmPass" value={edit.confirmPass} onChange={handleChangeEdit} />
           </Modal.Body>
           <Modal.Footer>
             <Button variant="success" type="submit">
@@ -185,4 +184,4 @@ const Perfil: FC<IPerfil> = ({ user }) => {
   )
 }
 
-export default withPermission(['author', 'reader'])(Perfil)
+export default Perfil

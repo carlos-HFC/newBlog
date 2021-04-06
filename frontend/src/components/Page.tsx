@@ -9,7 +9,7 @@ const Page: FC<IPage> = ({ children, title }) => {
     <main className="m-3">
       <div className="container p-3">
         {title && <><h2 className="text-center font-weight-bold mb-3" title={title}>{title}</h2><hr /></>}
-        <section className="mt-4">
+        <section>
           {children}
         </section>
       </div>
