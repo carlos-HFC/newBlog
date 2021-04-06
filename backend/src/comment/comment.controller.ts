@@ -1,5 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Req, UseGuards } from "@nestjs/common";
-import { Request } from "express";
+import { Body, Controller, Delete, Param, Post, UseGuards } from "@nestjs/common";
 
 import { ICreateComment } from "src/@types";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
@@ -14,8 +13,8 @@ export class CommentController {
   ) { }
 
   @Post()
-  async store(@Body() body: ICreateComment, @Req() req: Request) {
-    return await this.commentService.store(req.user, body)
+  async store(@Body() body: ICreateComment) {
+    return await this.commentService.store(body)
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard)
