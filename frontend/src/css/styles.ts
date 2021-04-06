@@ -7,6 +7,10 @@ export default createGlobalStyle`
     color: ${props => props.theme.text};
   }
 
+  .welcome {
+    background: ${props => darken(.05, props.theme.background)}
+  }
+
   header {
     background: ${props => props.theme.primary};
 
@@ -92,7 +96,17 @@ export default createGlobalStyle`
   }
 
   .post__highlight-item li, .article li {
-    background: ${props => invert(props.theme.background)};
+    background: ${props => props.theme.text};
     color: ${props => invert(props.theme.text)};
+  }
+
+  .post__highlight {
+    box-shadow: 0 .15rem .5rem .05rem ${props => props.theme.shadow}
+  }
+
+  .form-control::placeholder {
+    color: ${props => props.theme.text};
+    font-style: italic;
+    opacity: .7;
   }
 `
