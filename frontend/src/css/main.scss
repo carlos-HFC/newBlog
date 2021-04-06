@@ -11,6 +11,17 @@ body {
   font-size: 1rem;
 }
 
+label {
+  font-family: "Karla";
+  font-size: 1.1rem;
+  font-weight: 300;
+  margin-bottom: 0.2rem;
+
+  & ~ span {
+    margin-left: 0.5rem;
+  }
+}
+
 #root > :only-child.form__section {
   background-color: #fff;
 }
@@ -35,25 +46,6 @@ header {
   .nav-link {
     color: #fff !important;
     position: relative;
-
-    &:not(.dropdown-toggle)::after {
-      background: #fff;
-      content: "";
-      display: block;
-      height: 2px;
-      left: 0;
-      position: absolute;
-      transition: width 0.3s;
-      width: 0;
-    }
-
-    &.active {
-      &:not(.dropdown-toggle)::after {
-        background: #fff;
-        transition: width 0.3s;
-        width: 100%;
-      }
-    }
 
     &.dropdown-toggle {
       align-items: center;
@@ -143,8 +135,8 @@ header {
   }
 }
 
-textarea.form-control {
-  border-radius: 15px;
+textarea {
+  border-radius: 15px !important;
   resize: none;
 }
 
@@ -497,9 +489,7 @@ textarea.form-control {
   }
 
   &__highlight {
-    border: 1px solid #aaa;
     border-radius: 5px;
-    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.5);
     display: flex;
     flex: 1;
     height: auto;
@@ -579,7 +569,7 @@ textarea.form-control {
 }
 
 .article {
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
 
   &__title,
   h2 {
@@ -604,8 +594,8 @@ textarea.form-control {
 
   ul {
     display: flex;
-    margin-bottom: 8px;
     font-weight: 700;
+    margin-bottom: 8px;
 
     li {
       border-radius: 10px;
@@ -665,18 +655,18 @@ textarea.form-control {
   font-family: "Rubik";
 
   .ql-toolbar.ql-snow {
-    font-family: "Rubik";
     border: 0;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    font-family: "Rubik";
   }
 
   .ql-container.ql-snow {
-    font-family: "Rubik";
-    font-size: 1rem;
     border: 0;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    font-family: "Rubik";
+    font-size: 1rem;
     min-height: 150px;
   }
 
@@ -687,4 +677,85 @@ textarea.form-control {
   .ql-editor img {
     max-width: 500px;
   }
+}
+
+.filters {
+  margin-bottom: 2rem;
+
+  button svg {
+    margin-bottom: 0.25rem;
+    margin-left: 0.5rem;
+    transition: transform 0.3s;
+  }
+}
+
+.form__comments {
+  hr {
+    margin-top: 0;
+  }
+}
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+  max-width: 700px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  strong {
+    margin-bottom: 1rem;
+
+    svg {
+      margin-bottom: 0.25rem;
+      margin-right: 0.5rem;
+    }
+
+    time {
+      font-size: 0.8rem;
+      font-weight: 300;
+      margin-left: 1rem;
+      text-transform: lowercase;
+    }
+  }
+}
+
+.check {
+  &__input {
+    appearance: none;
+    border: 1px solid #bfbfbf;
+    border-radius: 50%;
+    height: 1rem;
+    margin-right: 0.5rem;
+    margin-top: 0.25rem;
+    outline: none;
+    transition: background-color 0.3s;
+    vertical-align: top;
+    width: 1rem;
+
+    &:checked {
+      background: #999;
+      border-color: #999;
+    }
+
+    &:focus {
+      color: map-get($colors, dark);
+      outline: 0;
+      transition: 0.2s;
+    }
+  }
+
+  &__label {
+    display: inline;
+    margin-bottom: 0;
+  }
+}
+
+.welcome {
+  background: #000;
+  font-family: "Karla";
 }
