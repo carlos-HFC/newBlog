@@ -1,12 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from "@nestjs/common";
 import { ICreateCategoryArticle } from "src/@types";
 
-import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
-import { Role } from "src/auth/roles.decorator";
 import { CategoryArticleService } from "./categoryArticle.service";
 
-@UseGuards(JwtAuthGuard)
-@Role('author')
 @Controller('categoryArticles')
 export class CategoryArticleController {
   constructor(
@@ -18,6 +14,11 @@ export class CategoryArticleController {
     return await this.categoryArticleService.getAll()
   }
 
+  @Get('/filter')
+  async filter(@Query('ids') ids?: string, @Query("field") field?: 'numberAccess' | 'publishedIn') {
+    return await this.categoryArticleService.filterArticles(ids, field)
+  }
+
   @Get(":id")
   async byId(@Param("id") id: number) {
     return await this.categoryArticleService.getById(id)
@@ -27,6 +28,7 @@ export class CategoryArticleController {
   async byCategoryId(@Param("categoryId") categoryId: number) {
     return await this.categoryArticleService.getByCategoryId(categoryId)
   }
+
   @Get("/article/:articleId")
   async byArticleId(@Param("articleId") articleId: number) {
     return await this.categoryArticleService.getByArticleId(articleId)
