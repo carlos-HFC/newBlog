@@ -12,7 +12,7 @@ const withPermission = (roles: string[]) =>
 
     return roles.includes(String(role).toLowerCase())
       ? <Component {...props} />
-      : <Redirect to="profile" />
+      : <Redirect to="/" />
   }
 
 export default withPermission
