@@ -5,22 +5,17 @@ import Creatable from 'react-select/creatable'
 import Quill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
+import { IOptions } from '../@types'
 import { Button, InputBlock, Page } from '../components'
 import { BlogContext } from '../context/BlogContext'
 import { notify } from '../utils'
 import api from '../services/api'
 import withPermission from '../utils/util'
 
-interface ITags {
-  value: string | number
-  label: string
-  __isNew__?: boolean
-}
-
 function Articles() {
   const { categories } = useContext(BlogContext)
 
-  const [newTags, setNewTags] = useState<ITags[]>([])
+  const [newTags, setNewTags] = useState<IOptions[]>([])
   const [thumb, setThumb] = useState<File | null>(null)
   const [registerArticleData, setRegisterArticleData] = useState({
     title: "",
@@ -98,11 +93,12 @@ function Articles() {
         </div>
         <div className="row mb-3">
           <div className="col-lg-6">
-            <InputBlock label="Título" name="title" value={registerArticleData.title} onChange={changeRegisterArticle} />
+            <InputBlock id="TitleArticle" label="Título" name="title" placeholder="Adicione o título do artigo"
+              value={registerArticleData.title} onChange={changeRegisterArticle} />
           </div>
           <div className="col-lg-6">
             <label>Categorias</label>
-            <Creatable classNamePrefix="react_select" isMulti isLoading={!categories} isClearable placeholder="Adicione a(s) categoria(s) do artigo"
+            <Creatable classNamePrefix="react_select" isMulti isLoading={!categories?.length} isClearable placeholder="Adicione a(s) categoria(s) do artigo"
               options={categories?.map(el => ({ value: el.id, label: el.name }))}
               value={newTags as any} onChange={e => setNewTags(e as any)}
             />
