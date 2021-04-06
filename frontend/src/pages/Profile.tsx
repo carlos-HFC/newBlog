@@ -2,8 +2,9 @@ import { useContext } from 'react'
 
 import { Perfil } from '../components'
 import { UserContext } from '../context/UserContext'
+import withPermission from '../utils/util'
 
-export default function Profile() {
+function Profile() {
   const { user } = useContext(UserContext)
 
   return (
@@ -12,3 +13,5 @@ export default function Profile() {
     </div>
   )
 }
+
+export default withPermission(['author', 'reader'])(Profile)
