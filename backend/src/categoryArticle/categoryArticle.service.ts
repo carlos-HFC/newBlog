@@ -2,7 +2,9 @@ import { forwardRef, HttpException, Inject, Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
 
 import { ICreateCategoryArticle } from "src/@types";
+import { Article } from "src/article/article.model";
 import { ArticleService } from "src/article/article.service";
+import { Category } from "src/category/category.model";
 import { CategoryService } from "src/category/category.service";
 import { CategoryArticle } from "./categoryArticle.model";
 
@@ -19,6 +21,23 @@ export class CategoryArticleService {
 
   async getAll() {
     return await this.categoryArticleModel.findAll()
+  }
+
+  async filterArticles(ids?: string, field: 'numberAccess' | 'publishedIn' = 'numberAccess') {
+    let where = {}
+
+    if (ids) where = { categoryId: ids.split(',') }
+
+    return await this.categoryArticleModel.findAll({
+      where,
+      include: [
+        {
+          model: Article,
+          include: [Category]
+        }
+      ],
+      order: [['article', field, 'DESC']]
+    })
   }
 
   async getById(id: number) {
