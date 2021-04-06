@@ -6,7 +6,6 @@ import { NavLink, useHistory } from "react-router-dom"
 import { ThemeContext } from "styled-components"
 
 import { Avatar } from "."
-import { BlogContext } from "../context/BlogContext"
 import { UserContext } from "../context/UserContext"
 import { isAuth, logout } from '../services/auth'
 
@@ -16,7 +15,6 @@ interface IHeader {
 
 const Header: FC<IHeader> = ({ handleTheme }) => {
   const history = useHistory()
-  const { categories } = useContext(BlogContext)
   const { user } = useContext(UserContext)
   const { title } = useContext(ThemeContext)
 
@@ -35,19 +33,11 @@ const Header: FC<IHeader> = ({ handleTheme }) => {
         </Navbar.Toggle>
         <Navbar.Collapse>
           <Nav className="m-auto align-items-lg-center" activeKey={history.location.pathname}>
-            <Dropdown as="div" navbar id="categories">
-              <Dropdown.Toggle as="a" role="button" className="nav-link">
-                Categorias
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                {categories?.map(category => (
-                  <LinkContainer key={category.id} to={`/categories/${category.name}`}>
-                    <Dropdown.Item>{category.name}</Dropdown.Item>
-                  </LinkContainer>
-                ))}
-              </Dropdown.Menu>
-            </Dropdown>
-            {user?.role === 'author' && <NavLink className="nav-link" to="/articles">Artigos</NavLink>}
+            {user?.role === 'author' &&
+              <>
+                <NavLink className="nav-link" to="/articles">Artigos</NavLink>
+                <NavLink className="nav-link" to="/users">Usuários</NavLink>
+              </>}
           </Nav>
           <Nav className="align-items-lg-center" activeKey={history.location.pathname}>
             <label className="switch">
