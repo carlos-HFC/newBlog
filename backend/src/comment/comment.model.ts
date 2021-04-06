@@ -1,7 +1,6 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from "sequelize-typescript";
 
 import { Article } from "src/article/article.model";
-import { User } from "src/user/user.model";
 
 @Table({ paranoid: true })
 export class Comment extends Model<Comment> {
@@ -29,11 +28,4 @@ export class Comment extends Model<Comment> {
 
   @BelongsTo(() => Article)
   article: Article
-
-  @ForeignKey(() => User)
-  @Column({ allowNull: true })
-  userId: number
-
-  @BelongsTo(() => User)
-  user: User
 }

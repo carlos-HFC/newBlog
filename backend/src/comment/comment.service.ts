@@ -3,7 +3,6 @@ import { InjectModel } from "@nestjs/sequelize";
 import { format } from 'date-fns'
 
 import { ICreateComment } from "src/@types";
-import { User } from "src/user/user.model";
 import { Comment } from './comment.model'
 
 @Injectable()
@@ -13,17 +12,16 @@ export class CommentService {
     private readonly commentModel: typeof Comment
   ) { }
 
-  async store(user: User, body: ICreateComment) {
-    const publishedIn = format(new Date(), 'dd-MM-yyyy HH:mm:ss')
+  async store(body: ICreateComment) {
+    const publishedIn = format(new Date(), 'yyyy-MM-dd HH:mm:ss')
 
     if (body.isAnonimous) body.name = null
     if (!body.isAnonimous && body.name) body.name
-    if (!body.isAnonimous && !body.name && !user) throw new HttpException("Insira seu nome, por favor!", 406)
+    if (!body.isAnonimous && !body.name) throw new HttpException("Insira seu nome, por favor!", 406)
 
     const comment = await this.commentModel.create({
       ...body,
-      publishedIn,
-      userId: user && user.id
+      publishedIn
     })
 
     return { comment, message: "Comentário criado com sucesso!" }
