@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Query, Req, UseGuards } from "@nestjs/common";
 import { Request } from "express";
 
-import { ICreateUser, ILogin, IUpdateUser } from "src/@types";
+import { ICreateUser, IUpdateUser } from "src/@types";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { RolesGuard } from "src/auth/role.guard";
 import { Role } from "src/auth/roles.decorator";
