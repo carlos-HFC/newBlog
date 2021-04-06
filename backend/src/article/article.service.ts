@@ -17,7 +17,12 @@ export class ArticleService {
   ) { }
 
   async getAll() {
-    return await this.articleModel.scope("complete").findAll()
+    return await this.articleModel.scope("complete").findAll({
+      order: [
+        ['numberAccess', 'DESC'],
+        ['comment', 'id', 'DESC']
+      ]
+    })
   }
 
   async getById(id: number) {
