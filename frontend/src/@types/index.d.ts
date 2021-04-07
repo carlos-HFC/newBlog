@@ -20,6 +20,7 @@ export interface IUser {
   email: string
   avatar?: string
   role: string
+  createdAt: Date
   deletedAt: Date | null
 }
 
