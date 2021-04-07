@@ -25,7 +25,7 @@ export default createGlobalStyle`
     }
   }
 
-  hr {
+  hr, .users header strong::before {
     background: ${props => props.theme.text};
   }
 

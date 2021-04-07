@@ -759,3 +759,102 @@ textarea {
   background: #000;
   font-family: "Karla";
 }
+
+.users {
+  display: flex;
+  flex-direction: column;
+
+  header {
+    align-items: center;
+    background: transparent;
+    display: flex;
+    font-family: "Karla";
+    font-size: 1.7rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+
+    strong {
+      cursor: pointer;
+      margin: 0 3rem;
+      position: relative;
+      text-transform: uppercase;
+
+      &::before {
+        bottom: 0;
+        content: "";
+        height: 3px;
+        position: absolute;
+        width: 0;
+      }
+
+      &.active {
+        &::before {
+          transition: width 0.4s;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  main {
+    height: auto;
+    margin: auto;
+    width: 800px;
+    position: relative;
+
+    .list__reader,
+    .list__author {
+      opacity: 0;
+      position: absolute;
+      transition: opacity 0.4s, left 0.5s;
+      width: 100%;
+
+      &.active {
+        left: 0;
+        opacity: 1;
+        width: 100%;
+      }
+
+      li {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        margin-bottom: 5%;
+
+        &.disabled {
+          opacity: 0.7;
+          pointer-events: none;
+        }
+
+        .users__data {
+          display: flex;
+
+          &:first-child {
+            align-items: center;
+          }
+
+          h4 {
+            margin-bottom: 1rem;
+          }
+
+          p {
+            margin: 0.5rem 0;
+          }
+
+          svg {
+            margin-right: 2rem;
+          }
+        }
+      }
+    }
+
+    .list__author {
+      left: -70%;
+    }
+
+    .list__reader {
+      left: 70%;
+    }
+  }
+}
