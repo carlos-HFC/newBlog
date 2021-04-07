@@ -25,7 +25,11 @@ export class UserService {
     })
   }
 
-  async getInactives() {
+  async getInactives(role: string) {
+    if (role) {
+      return await this.userModel.scope("inactives").findAll({ where: { role } })
+    }
+
     return await this.userModel.scope("inactives").findAll()
   }
 

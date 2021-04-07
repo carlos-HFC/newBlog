@@ -28,8 +28,8 @@ export class UserController {
 
   @Role('author')
   @Get('/inactive')
-  async inactives() {
-    return await this.userService.getInactives()
+  async inactives(@Query('role') role?: string) {
+    return await this.userService.getInactives(role)
   }
 
   @Role('author')
