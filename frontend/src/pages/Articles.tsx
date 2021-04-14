@@ -98,7 +98,7 @@ function Articles() {
           </div>
           <div className="col-lg-6">
             <label>Categorias</label>
-            <Creatable classNamePrefix="react_select" isMulti isLoading={!categories?.length} isClearable placeholder="Adicione a(s) categoria(s) do artigo"
+            <Creatable classNamePrefix="react_select" isMulti isClearable placeholder="Adicione a(s) categoria(s) do artigo"
               options={categories?.map(el => ({ value: el.id, label: el.name }))}
               value={newTags as any} onChange={e => setNewTags(e as any)}
             />
@@ -112,9 +112,9 @@ function Articles() {
                 toolbar: [
                   [{ 'header': [1, 2, 3, false] }],
                   ['bold', 'italic', 'underline', 'blockquote', 'code-block'],
+                  [{ 'color': [] }, { 'background': [] }, { 'align': [] }],
                   [{ 'list': 'ordered' }, { 'list': 'bullet' }, { 'indent': '-1' }, { 'indent': '+1' }],
-                  [{ 'align': [] }],
-                  ['link', 'image'],
+                  ['link', 'image', 'video'],
                   ['clean']
                 ]
               }}
