@@ -1,5 +1,4 @@
 import { FC } from "react"
-import { BsTagFill } from "react-icons/bs"
 
 import { ICategories } from '../@types'
 
@@ -9,8 +8,8 @@ interface ITag {
 
 const Tag: FC<ITag> = ({ list }) => {
   return (
-    <ul>
-      {list?.map(item => <li key={item.id} className="badge"><BsTagFill /> {item.name}</li>)}
+    <ul className="tag">
+      {list?.map(item => <li key={item.id}>{item.name}</li>)}
     </ul>
   )
 }
