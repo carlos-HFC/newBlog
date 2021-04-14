@@ -11,7 +11,7 @@ export default createGlobalStyle`
     background: ${props => darken(.05, props.theme.background)}
   }
 
-  header {
+  .header {
     background: ${props => props.theme.primary};
 
     a.dropdown-item {
@@ -95,12 +95,12 @@ export default createGlobalStyle`
     stroke: ${props => props.theme.text} !important;
   }
 
-  .post__highlight-item li, .article li {
+  .tag li {
     background: ${props => props.theme.text};
     color: ${props => invert(props.theme.text)};
   }
 
-  .post__highlight {
+  .detach__highlight, .post__highlight {
     box-shadow: 0 .15rem .5rem .05rem ${props => props.theme.shadow}
   }
 
@@ -108,5 +108,13 @@ export default createGlobalStyle`
     color: ${props => props.theme.text};
     font-style: italic;
     opacity: .7;
+  }
+
+  .post__highlight {
+    background: ${props => props.theme.background};
+
+    &-item, &-item:hover, small {
+      color: ${props => props.theme.text};
+    }
   }
 `
