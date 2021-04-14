@@ -19,7 +19,7 @@ const Header: FC<IHeader> = ({ handleTheme }) => {
   const { title } = useContext(ThemeContext)
 
   return (
-    <header>
+    <header className="header">
       <Navbar expand="lg" className="container-fluid">
         <LinkContainer to="/">
           <Navbar.Brand title="BLOG">
