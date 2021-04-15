@@ -52,27 +52,6 @@ export default function Home() {
 
   return (
     <Page>
-      <section className="welcome jumbotron">
-        <h1 className="display-4">Bem-vindos!!</h1>
-        <p className="lead">
-          Este é um blog criado como forma de estudo pessoal.
-        </p>
-        <hr className="my-4" />
-        <p>
-          O leitor pode ver e comentar em qualquer artigo, além de poder alterar o tema do site. Se ele preferir, pode cadastrar-se na plataforma. Logo na home, também há a opção dele poder filtrar os artigos que deseja ver, selecionando a(s) categoria(s) disponível(is) e ordenando por "Mais recentes" ou "Mais acessados".
-        </p>
-        <p>
-          O autor, que também é admin, pode criar e deletar artigos, cadastrar e desativar autores e também poder remover comentários de algum artigo.
-        </p>
-        <p>
-          Os artigos são formados por: título, descrição e categoria(s). A imagem principal é escolhida de acordo com o autor, sendo que ele pode deixar em branco. As categorias podem ser selecionadas e criadas no momento da criação do artigo. A descrição do artigo pode conter elementos HTML, imagens, links, além de modificar o tamanho da fonte.
-        </p>
-        <p>
-          Os comentários feitos nos artigos são formados por: nome e descrição. O nome, por sua vez, pode ficar em branco, sinalizando que o leitor efetuou um comentário como anônimo.
-        </p>
-        <p>Abaixo, temos alguns exemplos de artigos.</p>
-      </section>
-
       <section className="filters">
         <div className="d-flex justify-content-center">
           <Button variant="primary" onClick={() => setFilter(filter => !filter)}>
@@ -119,25 +98,75 @@ export default function Home() {
         </Collapse>
       </section>
 
-      <section className="post">
+      <section className="detach">
         {articles?.map(article => (
-          <article className="post__highlight" key={article.id}>
-            <div className="post__highlight-item">
+          <article className="detach__highlight" key={article.id}>
+            <div className="detach__highlight-item">
               <Tag list={article.category} />
               <h3>{article.title}</h3>
               <small>{article.author.name.split(' ')[0]}, {format(parseISO(article.publishedIn), "dd 'de' MMM", { locale: ptBR })}</small>
-              <p className="text" dangerouslySetInnerHTML={{ __html: article.description }} />
+              <p className="text" dangerouslySetInnerHTML={{ __html: article.description.substring(0, 200) }} />
               <Link to={`/articles/${article.id}`} className="btn btn__navy stretched-link" onClick={() => window.scrollTo({ top: 0 })}>
                 Continue Lendo <BsArrowRight size={25} />
               </Link>
             </div>
             {article.image &&
-              <div className="post__highlight-img">
+              <div className="detach__highlight-img">
+                <img src={article.image} alt="Imagem" />
+              </div>}
+          </article>
+        ))}
+        {articles?.map(article => (
+          <article className="detach__highlight" key={article.id}>
+            <div className="detach__highlight-item">
+              <Tag list={article.category} />
+              <h3>{article.title}</h3>
+              <small>{article.author.name.split(' ')[0]}, {format(parseISO(article.publishedIn), "dd 'de' MMM", { locale: ptBR })}</small>
+              <p className="text" dangerouslySetInnerHTML={{ __html: article.description.substring(0, 200) }} />
+              <Link to={`/articles/${article.id}`} className="btn btn__navy stretched-link" onClick={() => window.scrollTo({ top: 0 })}>
+                Continue Lendo <BsArrowRight size={25} />
+              </Link>
+            </div>
+            {article.image &&
+              <div className="detach__highlight-img">
                 <img src={article.image} alt="Imagem" />
               </div>}
           </article>
         ))}
       </section>
+
+      <div className="row">
+        <div className="col-lg-9">
+          <section className="post">
+            {[1, 2, 3, 4].map(() => (
+              <article className="post__highlight">
+                <div className="post__highlight-img">
+                  <img src={articles && articles[0]?.image} alt="" />
+                </div>
+                <Link to="" className="post__highlight-item stretched-link">
+                  <header>
+                    <ul className="tag">
+                      <li>Tag</li>
+                    </ul>
+                    <small>Autor</small>
+                  </header>
+                  <h3>Título</h3>
+                  <p className="text" dangerouslySetInnerHTML={{ __html: articles && articles[0].description.substring(0, 200) }} />
+                </Link>
+              </article>
+            ))}
+          </section>
+        </div>
+
+        <div className="col-lg-3">
+          <section className="related">
+            <h2>Últimos textos</h2><hr />
+            {[1, 2, 3, 4, 5].map(() => (
+              <p>Title Title Title</p>
+            ))}
+          </section>
+        </div>
+      </div>
     </Page>
   )
 }
