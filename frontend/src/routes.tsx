@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import Swal from 'sweetalert2'
 
 import { IUser } from './@types'
-import { Header } from './components'
+import { Footer, Header } from './components'
 import { UserProvider } from './context/UserContext'
 import { ArticleRead, Articles, Home, Login, Profile, Users } from './pages'
 import { isAuth, logout } from './services/auth'
@@ -86,6 +86,7 @@ function Routes() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/articles/:id" component={ArticleRead} />
           <Private />
+          {!route && <Footer />}
         </ThemeProvider>
       </UserProvider>
     </Switch>
