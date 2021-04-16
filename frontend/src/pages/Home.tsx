@@ -13,20 +13,16 @@ import { BlogContext } from '../context/BlogContext'
 import api from '../services/api'
 
 export default function Home() {
-  const { articles, categories, handleArticles, handleCategories } = useContext(BlogContext)
+  const { articles, categories, handleArticles } = useContext(BlogContext)
 
   const [filter, setFilter] = useState(false)
   const [ids, setIds] = useState<IOptions[]>([])
   const [order, setOrder] = useState('numberAccess')
+  const [latestArticles, setLatestArticles] = useState<IArticles[]>([])
 
   useEffect(() => {
-    Promise.all([
-      api.get('/categories'),
-      api.get('/articles')
-    ]).then(response => {
-      handleCategories(response[0].data)
-      handleArticles(response[1].data)
-    })
+    api.get('/articles/latest')
+      .then(response => setLatestArticles(response.data))
   }, [])
 
   async function filterCategories() {
@@ -99,34 +95,17 @@ export default function Home() {
       </section>
 
       <section className="detach">
-        {articles?.map(article => (
+        {articles?.slice(0, 2).map(article => (
           <article className="detach__highlight" key={article.id}>
-            <div className="detach__highlight-item">
+            <Link to={`/articles/${article.id}`} className="detach__highlight-item stretched-link" onClick={() => window.scrollTo({ top: 0 })}>
               <Tag list={article.category} />
               <h3>{article.title}</h3>
               <small>{article.author.name.split(' ')[0]}, {format(parseISO(article.publishedIn), "dd 'de' MMM", { locale: ptBR })}</small>
               <p className="text" dangerouslySetInnerHTML={{ __html: article.description.substring(0, 200) }} />
-              <Link to={`/articles/${article.id}`} className="btn btn__navy stretched-link" onClick={() => window.scrollTo({ top: 0 })}>
+              <Button variant="navy">
                 Continue Lendo <BsArrowRight size={25} />
-              </Link>
-            </div>
-            {article.image &&
-              <div className="detach__highlight-img">
-                <img src={article.image} alt="Imagem" />
-              </div>}
-          </article>
-        ))}
-        {articles?.map(article => (
-          <article className="detach__highlight" key={article.id}>
-            <div className="detach__highlight-item">
-              <Tag list={article.category} />
-              <h3>{article.title}</h3>
-              <small>{article.author.name.split(' ')[0]}, {format(parseISO(article.publishedIn), "dd 'de' MMM", { locale: ptBR })}</small>
-              <p className="text" dangerouslySetInnerHTML={{ __html: article.description.substring(0, 200) }} />
-              <Link to={`/articles/${article.id}`} className="btn btn__navy stretched-link" onClick={() => window.scrollTo({ top: 0 })}>
-                Continue Lendo <BsArrowRight size={25} />
-              </Link>
-            </div>
+              </Button>
+            </Link>
             {article.image &&
               <div className="detach__highlight-img">
                 <img src={article.image} alt="Imagem" />
@@ -138,20 +117,18 @@ export default function Home() {
       <div className="row">
         <div className="col-lg-9">
           <section className="post">
-            {[1, 2, 3, 4].map(() => (
-              <article className="post__highlight">
+            {articles?.slice(2).map(article => (
+              <article className="post__highlight" key={article.id}>
                 <div className="post__highlight-img">
-                  <img src={articles && articles[0]?.image} alt="" />
+                  <img src={article.image} alt={article.title} />
                 </div>
-                <Link to="" className="post__highlight-item stretched-link">
+                <Link to={`/articles/${article.id}`} className="post__highlight-item stretched-link" onClick={() => window.scrollTo({ top: 0 })}>
                   <header>
-                    <ul className="tag">
-                      <li>Tag</li>
-                    </ul>
-                    <small>Autor</small>
+                    <Tag list={article.category} />
+                    <small>{article.author.name.split(' ')[0]}</small>
                   </header>
-                  <h3>Título</h3>
-                  <p className="text" dangerouslySetInnerHTML={{ __html: articles && articles[0].description.substring(0, 200) }} />
+                  <h3>{article.title}</h3>
+                  <p className="text" dangerouslySetInnerHTML={{ __html: article.description.substring(0, 200) }} />
                 </Link>
               </article>
             ))}
@@ -159,10 +136,12 @@ export default function Home() {
         </div>
 
         <div className="col-lg-3">
-          <section className="related">
+          <section className="latest">
             <h2>Últimos textos</h2><hr />
-            {[1, 2, 3, 4, 5].map(() => (
-              <p>Title Title Title</p>
+            {latestArticles.map(article => (
+              <Link to={`/articles/${article.id}`}>
+                {article.title}
+              </Link>
             ))}
           </section>
         </div>
