@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom"
 import { Button, InputBlock, Tag } from "."
 import { IArticles } from "../@types"
 import { BlogContext } from "../context/BlogContext"
+import { UserContext } from "../context/UserContext"
 import { notify } from "../utils"
 import api from "../services/api"
 
@@ -17,6 +18,7 @@ interface IPost {
 const Posts: FC<IPost> = ({ articles }) => {
   const params = useParams() as { id: string }
   const { handleArticles } = useContext(BlogContext)
+  const { user } = useContext(UserContext)
 
   const [comment, setComment] = useState({
     name: "",
@@ -24,7 +26,7 @@ const Posts: FC<IPost> = ({ articles }) => {
   })
 
   useEffect(() => {
-    api.patch(`/articles/access/${params.id}`)
+    if (!user || user.role === 'reader') api.patch(`/articles/access/${params.id}`)
   }, [])
 
   function changeFormComment(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
