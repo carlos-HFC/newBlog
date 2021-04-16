@@ -20,6 +20,11 @@ export class ArticleController {
     return await this.articleService.getAll()
   }
 
+  @Get('/latest')
+  async latest() {
+    return await this.articleService.latestArticles()
+  }
+
   @Get(':id')
   async getId(@Param('id') id: number) {
     return await this.articleService.getById(id)

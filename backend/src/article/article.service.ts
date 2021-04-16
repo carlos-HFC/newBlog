@@ -25,6 +25,16 @@ export class ArticleService {
     })
   }
 
+  async latestArticles() {
+    return await this.articleModel.scope("complete").findAll({
+      order: [
+        ['id', 'DESC'],
+        ['comment', 'id', 'DESC']
+      ],
+      limit: 5
+    })
+  }
+
   async getById(id: number) {
     return await this.articleModel.scope("complete").findByPk(id)
   }
