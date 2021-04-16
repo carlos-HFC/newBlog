@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useContext, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useMemo, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { BsCamera } from 'react-icons/bs'
 import Creatable from 'react-select/creatable'
@@ -29,6 +29,10 @@ function Articles() {
       setThumb(file)
     }
   })
+
+  const preview = useMemo(() => {
+    return thumb ? URL.createObjectURL(thumb) : ''
+  }, [thumb])
 
   function changeRegisterArticle(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     setRegisterArticleData({ ...registerArticleData, [e.target.name]: e.target.value })
@@ -81,7 +85,7 @@ function Articles() {
             <div {...getRootProps()} className={`dropzone ${thumb ? 'has-thumbnail' : ''}`}>
               <input {...getInputProps()} accept="image/*" />
               {thumb
-                ? <img src={URL.createObjectURL(thumb)} alt="Ponto de coleta" />
+                ? <img src={preview} alt="Ponto de coleta" />
                 : (
                   <p>
                     <BsCamera />
