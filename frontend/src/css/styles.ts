@@ -77,7 +77,7 @@ export default createGlobalStyle`
     }
   }
 
-  .react_select__multi-value__label, .react_select__indicator, .react_select__placeholder, .react_select__input, .ql-header, .ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active {
+  .react_select__multi-value__label, .react_select__indicator, .react_select__placeholder, .react_select__input, .ql-header, .ql-snow .ql-picker.ql-expanded .ql-picker-label, .ql-snow.ql-toolbar .ql-picker-label:hover, .ql-snow.ql-toolbar .ql-picker-item:hover, .ql-snow.ql-toolbar .ql-picker-label.ql-active, .latest * {
     color: ${props => props.theme.text} !important;
   }
   
@@ -101,20 +101,18 @@ export default createGlobalStyle`
   }
 
   .detach__highlight, .post__highlight {
-    box-shadow: 0 .15rem .5rem .05rem ${props => props.theme.shadow}
+    background: ${props => props.theme.background};
+    box-shadow: 0 .15rem .5rem .05rem ${props => props.theme.shadow};
+    color: ${props => props.theme.text};
+
+    &-item, &-item:hover, small {
+      color: ${props => props.theme.text};
+    }
   }
 
   .form-control::placeholder {
     color: ${props => props.theme.text};
     font-style: italic;
     opacity: .7;
-  }
-
-  .post__highlight {
-    background: ${props => props.theme.background};
-
-    &-item, &-item:hover, small {
-      color: ${props => props.theme.text};
-    }
   }
 `

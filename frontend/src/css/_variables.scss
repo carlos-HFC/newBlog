@@ -1,3 +1,5 @@
+@use "sass:list";
+
 $colors: (
   danger: #c0392b,
   dark: #212529,
@@ -7,6 +9,8 @@ $colors: (
   success: #1d6f42,
   warning: #fc3,
 );
+
+$sizes: (1199.9, 991.9, 767.9, 575.9, 424.9);
 
 $btn-colors: (
   "danger" map-get($colors, danger) #fff,
@@ -54,5 +58,16 @@ $btn-colors: (
     background: linear-gradient(125deg, lighten($color, 40), lighten($color, 30)) !important;
     border: lighten($color, 55) !important;
     color: $color;
+  }
+}
+
+@each $size in $sizes {
+  $i: list.index($sizes, $size);
+  // $min: list.
+  :root {
+    @media (max-width: #{$size+"px"}) {
+      $n: $i * 3.125;
+      font-size: 100% - $n;
+    }
   }
 }
