@@ -1,5 +1,5 @@
 import { isAfter } from 'date-fns'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Redirect, Route, RouteProps, Switch, useRouteMatch } from 'react-router-dom'
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import Cookies from 'js-cookie'
@@ -7,9 +7,11 @@ import Swal from 'sweetalert2'
 
 import { IUser } from './@types'
 import { Footer, Header } from './components'
+import { BlogContext } from './context/BlogContext'
 import { UserProvider } from './context/UserContext'
 import { ArticleRead, Articles, Home, Login, Profile, Users } from './pages'
 import { isAuth, logout } from './services/auth'
+import api from './services/api'
 
 import { dark, light } from './css/themes'
 import GlobalStyle from './css/styles'
@@ -38,7 +40,16 @@ function Routes() {
   const expiresToken = Cookies.get("EXP_TOKEN_BLOG")
   const cookieUser = Cookies.get("user")
 
+  const { handleArticles, handleCategories } = useContext(BlogContext)
+
   useEffect(() => {
+    Promise.all([
+      api.get('/categories'),
+      api.get('/articles')
+    ]).then(response => {
+      handleCategories(response[0].data)
+      handleArticles(response[1].data)
+    })
     setUser(Cookies.getJSON("user"))
   }, [])
 
