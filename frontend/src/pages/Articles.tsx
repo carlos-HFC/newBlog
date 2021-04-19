@@ -1,9 +1,8 @@
 import { ChangeEvent, FormEvent, useContext, useMemo, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { BsCamera } from 'react-icons/bs'
-import Creatable from 'react-select/creatable'
 import Quill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import Creatable from 'react-select/creatable'
 
 import { IOptions } from '../@types'
 import { Button, InputBlock, Page } from '../components'
@@ -12,8 +11,10 @@ import { notify } from '../utils'
 import api from '../services/api'
 import withPermission from '../utils/util'
 
+import 'react-quill/dist/quill.snow.css'
+
 function Articles() {
-  const { categories } = useContext(BlogContext)
+  const { articles, categories } = useContext(BlogContext)
 
   const [newTags, setNewTags] = useState<IOptions[]>([])
   const [thumb, setThumb] = useState<File | null>(null)
@@ -78,34 +79,40 @@ function Articles() {
   }
 
   return (
-    <Page title="Cadastrar Artigo">
-      <form onSubmit={registerArticle}>
+    <Page title="Artigos">
+      <form className="register__article" onSubmit={registerArticle}>
         <div className="row mb-3">
-          <div className="col">
-            <div {...getRootProps()} className={`dropzone ${thumb ? 'has-thumbnail' : ''}`}>
-              <input {...getInputProps()} accept="image/*" />
-              {thumb
-                ? <img src={preview} alt="Ponto de coleta" />
-                : (
-                  <p>
-                    <BsCamera />
-                    Clique aqui ou arraste o arquivo
-                  </p>
-                )}
+          <div className="col-lg-6">
+            <div className="row mb-3">
+              <div className="col-12 mb-2">
+                <InputBlock id="TitleArticle" label="Título" name="title" placeholder="Adicione o título do artigo"
+                  value={registerArticleData.title} onChange={changeRegisterArticle} />
+              </div>
+              <div className="col-12 mb-2">
+                <label>Categorias</label>
+                <Creatable classNamePrefix="react_select" isMulti isClearable placeholder="Adicione a(s) categoria(s) do artigo"
+                  options={categories?.map(el => ({ value: el.id, label: el.name }))}
+                  value={newTags as any} onChange={e => setNewTags(e as any)}
+                />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="row mb-3">
           <div className="col-lg-6">
-            <InputBlock id="TitleArticle" label="Título" name="title" placeholder="Adicione o título do artigo"
-              value={registerArticleData.title} onChange={changeRegisterArticle} />
-          </div>
-          <div className="col-lg-6">
-            <label>Categorias</label>
-            <Creatable classNamePrefix="react_select" isMulti isClearable placeholder="Adicione a(s) categoria(s) do artigo"
-              options={categories?.map(el => ({ value: el.id, label: el.name }))}
-              value={newTags as any} onChange={e => setNewTags(e as any)}
-            />
+            <div className="row">
+              <div className="col-12">
+                <div {...getRootProps()} className={`dropzone ${thumb ? 'has-thumbnail' : ''}`}>
+                  <input {...getInputProps()} accept="image/*" />
+                  {thumb
+                    ? <img src={preview} alt="Ponto de coleta" />
+                    : (
+                      <p>
+                        <BsCamera />
+                        Clique aqui ou arraste o arquivo
+                      </p>
+                    )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         <div className="row mb-2">
@@ -125,14 +132,14 @@ function Articles() {
             />
           </div>
         </div>
-        <div className="d-flex justify-content-end">
-          <Button type="submit" variant="primary" className="mr-2">
+        <footer>
+          <Button type="submit" variant="primary">
             Cadastrar
           </Button>
           <Button type="reset" variant="secondary" onClick={cancelRegisterArticle}>
             Cancelar
           </Button>
-        </div>
+        </footer>
       </form>
     </Page>
   )
